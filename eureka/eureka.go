@@ -14,11 +14,6 @@ func init() {
 type Factory struct{}
 
 func (f *Factory) New(uri *url.URL) bridge.RegistryAdapter {
-	fmt.Println("-------------------------")
-	fmt.Println(uri.Host)
-	fmt.Println(uri.Path)
-	fmt.Println("-------------------------")
-
 	return &EurekaAdapter{host: uri.Host, path: uri.Path}
 }
 
@@ -28,21 +23,43 @@ type EurekaAdapter struct {
 }
 
 func (r *EurekaAdapter) Ping() error {
+	fmt.Println("------------------------- Ping")
+	fmt.Println(r.host)
+	fmt.Println(r.path)
+	fmt.Println("-------------------------")
 
-	return nil
+	return r.getAllApps()
 }
 
-func (r *EurekaAdapter) Register(service *bridge.Service) error {
+func (r *EurekaAdapter) Register(svc *bridge.Service) error {
+	fmt.Println("------------------------- Register")
+	fmt.Println("Name:", svc.Name)
+	fmt.Println("ID:", svc.ID)
+	fmt.Println("IP:", svc.IP)
+	fmt.Println("Port:", svc.Port)
+	fmt.Println("-------------------------")
 
-	return nil
+	return r.registerApp(svc)
 }
 
-func (r *EurekaAdapter) Deregister(service *bridge.Service) error {
+func (r *EurekaAdapter) Deregister(svc *bridge.Service) error {
+	fmt.Println("------------------------- Unregister")
+	fmt.Println("Name:", svc.Name)
+	fmt.Println("ID:", svc.ID)
+	fmt.Println("IP:", svc.IP)
+	fmt.Println("Port:", svc.Port)
+	fmt.Println("-------------------------")
 
-	return nil
+	return r.deregisterApp(svc)
 }
 
-func (r *EurekaAdapter) Refresh(service *bridge.Service) error {
+func (r *EurekaAdapter) Refresh(svc *bridge.Service) error {
+	fmt.Println("------------------------- Refresh")
+	fmt.Println("Name:", svc.Name)
+	fmt.Println("ID:", svc.ID)
+	fmt.Println("IP:", svc.IP)
+	fmt.Println("Port:", svc.Port)
+	fmt.Println("-------------------------")
 
 	return nil
 }
